@@ -38,7 +38,7 @@ parser.on('data', (data) => {
      console.log(data);
   }
   console.log(valores.temperature);
-  io.emit('message', valores.temperature);
+  io.emit('temperature', valores.temperature);
 })
 
 
