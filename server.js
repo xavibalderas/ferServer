@@ -17,7 +17,9 @@ program.parse(process.argv);
 
 const port = new SerialPort(program.serialPort, {
   baudRate: 115200
-})
+},(error)=>{console.log(error)});
+
+
 port.pipe(parser)
 
 
@@ -30,12 +32,13 @@ parser.on('data', (data) => {
   console.log(data);
   const valores = JSON.parse(data);
   console.log(valores.temperature);
-  io.emit('message', valores.temperature);
+  io.emit('message', 'Temperature' + valores.temperature);
 })
 
 
 io.on('connection', function(socket){
   console.log('a user connected');
+  socket.emit('message', 'welcome to the system!!');
 
 });
 
