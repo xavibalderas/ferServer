@@ -30,7 +30,11 @@ app.get('/', function(req, res){
 // Switches the port into "flowing mode"
 parser.on('data', (data) => {
   console.log(data);
-  const valores = JSON.parse(data);
+  try {
+    const valores = JSON.parse(data);
+  } catch (e) {
+    const valores = {"temperature": -1};
+  }
   console.log(valores.temperature);
   io.emit('message', 'Temperature' + valores.temperature);
 })
