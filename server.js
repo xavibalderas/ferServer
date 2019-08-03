@@ -30,7 +30,7 @@ app.get('/', function(req, res){
 // Switches the port into "flowing mode"
 parser.on('data', (data) => {
   console.log(data);
-  const valores = {};
+  var valores = {};
   try {
      valores = JSON.parse(data);
   } catch (e) {
