@@ -35,6 +35,7 @@ parser.on('data', (data) => {
      valores = JSON.parse(data);
   } catch (e) {
      valores = {"temperature": -1};
+     console.log(data);
   }
   console.log(valores.temperature);
   io.emit('message', 'Temperature' + valores.temperature);
@@ -44,7 +45,26 @@ parser.on('data', (data) => {
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.emit('message', 'welcome to the system!!');
+  socket.on('led',(data)=>{
+      console.log(data);
+      if (data === true){
+        var z = port.write('on', function(err) {
+          if (err) {
+            return console.log('Error on write: ', err.message)
+          }
+          console.log('message written')
 
+        });
+        console.log(z);
+      }else{
+        port.write('off', function(err) {
+          if (err) {
+            return console.log('Error on write: ', err.message)
+          }
+          console.log('message written')
+        });
+      }
+  });
 });
 
 http.listen(program.port, function(){
